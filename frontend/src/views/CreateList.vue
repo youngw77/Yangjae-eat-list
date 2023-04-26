@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <v-form
     ref="form"
     v-model="valid"
@@ -6,7 +7,7 @@
   >
     <v-text-field
       v-model="StoreName"
-      :counter="10"
+      :counter="20"
       :rules="StoreNameRules"
       label="가게명"
       required
@@ -14,6 +15,7 @@
 
     <v-text-field
       v-model="Content"
+      :counter="20"
       :rules="ContentRules"
       label="제목"
       required
@@ -23,23 +25,29 @@
       class="afterContent"
       background-color="amber lighten-4"
       label="후기"
+      color="orange orange-darken-4"
     ></v-textarea>
 
     <v-btn
       :disabled="!valid"
-      class="mr-4"
-      @click="validate"
+      class="mr-1"
+      @click="reset"
+      color="red"
     >
-      Validate
+      초기화
     </v-btn>
 
+    &nbsp;&nbsp;
+
     <v-btn
-      class="mr-4"
-      @click="reset"
+      class="mr-2"
+      @click="validate"
+      color="cyan"
     >
-      Reset Form
+      전송
     </v-btn>
   </v-form>
+</v-app>
 </template>
 
 <script>
@@ -48,14 +56,14 @@
       valid: true,
       StoreName: '',
       StoreNameRules: [
-        v => !!v || 'StoreName is required',
-        v => (v && v.length <= 20) || 'StoreName must be less than 20 characters',
+        v => !!v || '가게명을 입력해 주세요',
+        v => (v && v.length <= 20) || '가게명은 20글자 이하여야 합니다.',
       ],
       Content: '',
       
       ContentRules: [
-        v => !!v || 'Content is required',
-        v => (v && v.length <= 20) || 'Content must be less than 20 characters',
+        v => !!v || '제목을 입력해 주세요',
+        v => (v && v.length <= 20) || '제목은 20글자 이하여야 합니다.',
       ],
     }),
 
@@ -70,8 +78,5 @@
   }
 </script>
 
-<style>
-.afterContent{
-  color:"orange orange-darken-4";
-}
+<style scoped>
 </style>
