@@ -8,7 +8,7 @@
   import OlView from 'ol/View.js';
   import OlMap from 'ol/Map.js';
   import OSM from 'ol/source/OSM';
-  import {fromLonLat} from 'ol/proj.js'
+  import {fromLonLat, toLonLat} from 'ol/proj.js'
   import {defaults} from 'ol/control.js';
   
   export default {
@@ -39,6 +39,9 @@
           zoom: 16
         })
       })
+      this.olMap.on('click', (e) => {
+      console.log(toLonLat(e.coordinate));
+    })
     }
   
   }
