@@ -10,12 +10,16 @@
   import OSM from 'ol/source/OSM';
   import {fromLonLat, toLonLat} from 'ol/proj.js'
   import {defaults} from 'ol/control.js';
+  // import Geocoder from 'ol-geocoder';
+  import axios from 'axios';
   
   export default {
     name: 'MainMap',
     data() {
       return {
         olMap: undefined,
+        Address:null,
+        YangjaeAddress:[127.0376424, 37.478888],
       }
     },
     mounted() {
@@ -35,13 +39,35 @@
             })
         ],
         view: new OlView({
-          center: fromLonLat([127.0376424, 37.478888]), // 서울 양재
+          center: fromLonLat(this.YangjaeAddress), // 서울 양재
           zoom: 16
         })
       })
+
       this.olMap.on('click', (e) => {
       console.log(toLonLat(e.coordinate));
+      this.YangjaeAddress = toLonLat(e.coordinate);
+      this.Address=toLonLat(e.coordinate);
+      this.$emit('emit-MainMap', this.Address);
     })
+    
+    },
+
+    methods: {
+      getAddress (lon, lat) {
+      return axios.get(
+          'https://nominatim.openstreetmap.org/reverse',
+          {
+            params: {
+              format: 'json',
+              lon: lon,
+              lat: lat
+            }
+          })
+    },
+    foodAddress(){
+      return this.address;
+    },
     }
   
   }
@@ -49,8 +75,8 @@
   
   <style scoped>
   .main-map {
-    width: 30%;
-    height: 30%;
+    width: 40%;
+    height: 40%;
   }
   
   </style>

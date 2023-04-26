@@ -51,26 +51,31 @@ export default {
       id: 1,
       name: '한양돈까스',
       evaluation: '★★★★★',
+      coordinate: [127.03957338534723, 37.477294430405706],
     },
     {
       id: 2,
       name: '순대국',
       evaluation: '★★★★☆',
+      coordinate:[127.03627413028183, 37.48363196182872],
     },
     {
       id: 3,
       name: '싸다 김밥',
       evaluation: '★★★★☆',
+      coordinate:[127.03911429547514, 37.477783953208885],
     },
     {
       id: 4,
       name: '최군 식당',
       evaluation: '★★★★☆',
+      coordinate:[127.039803987076, 37.47748222912335],
     },
     {
       id: 5,
       name: '태국 식당 356',
       evaluation: '★★★☆☆',
+      coordinate:[127.039651240311, 37.48410336645273],
     },
   ],
 
@@ -103,7 +108,6 @@ export default {
     onGotoStatus(){
       this.$router.push(`/StoreList/${this.selectedFood.name}`);
     },
-
   },
 
   mounted(){
