@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <span>
-      <input type="text" placeholder="제목" size="69px">
+      <input type="text" 
+      placeholder="제목" 
+      size="69px">
     </span>
     <div>
       <textarea name="" 
@@ -95,12 +97,12 @@ export default {
   }),
 
   mounted(){
-    this.getStoreInfo(this.$route.params.StoreName);
+    this.getListInfo(this.$route.params.StoreName);
   },
 
   methods:{
-    getStoreInfo(StoreName){
-        getList(StoreName).then((result) => {
+    getListInfo(StoreName){
+      getList(StoreName).then((result) => {
             console.log(result);
         })
     },
@@ -111,7 +113,7 @@ export default {
         console.log(MainMap.data);
       },
       emitMainMap(data){
-        console.log('emit mapAdress', data);
+        console.log('emit mapAdress', data);  // data input-placeholder에 값 넣기
       },
   },
   

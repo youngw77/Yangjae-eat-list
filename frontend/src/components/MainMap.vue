@@ -1,5 +1,5 @@
 <template>
-    <div class="main-map" ref="map">
+    <div class="main-map" ref="map" @click="MapClick()">
     </div>
   </template>
   
@@ -10,18 +10,27 @@
   import OSM from 'ol/source/OSM';
   import {fromLonLat, toLonLat} from 'ol/proj.js'
   import {defaults} from 'ol/control.js';
+  import Overlay from 'ol/Overlay.js';
   // import Geocoder from 'ol-geocoder';
-  import axios from 'axios';
   
   export default {
     name: 'MainMap',
-    data() {
-      return {
-        olMap: undefined,
-        Address:null,
-        YangjaeAddress:[127.0376424, 37.478888],
-      }
-    },
+
+    // props: {
+    //   StoreAddress:{
+    //     type: String,
+    //     default(){
+    //       return "";
+    //     }
+    //   }
+    // },
+    data: () => ({
+      olMap: undefined,
+      Address:null,
+      YangjaeAddress:[127.0376424, 37.478888],
+
+    }),
+
     mounted() {
       this.olMap = new OlMap({
         target: this.$refs.map,
@@ -39,35 +48,67 @@
             })
         ],
         view: new OlView({
-          center: fromLonLat(this.YangjaeAddress), // 서울 양재
+          center: fromLonLat(this.Address = this.YangjaeAddress), // 서울 양재
           zoom: 16
         })
       })
-
-      this.olMap.on('click', (e) => {
+      this.olMap.on('click', async (e) => {
       console.log(toLonLat(e.coordinate));
-      this.YangjaeAddress = toLonLat(e.coordinate);
       this.Address=toLonLat(e.coordinate);
-      this.$emit('emit-MainMap', this.Address);
+      console.log(this.olMap.controls.rotate);
+      this.$emit('emit-MainMap', this.Address); // StoreStatus.vue에 클릭 좌표값 보내기
+
+      this.olMap = new OlMap({
+        target: this.$refs.map,
+        controls : defaults({
+        attribution : false,
+        zoom : false,
+        rotate: false,
+      }),
+        attribution : false,
+        zoom : false,
+        rotate: false,
+        layers: [
+            new OlLayerTile({
+              source: new OSM()
+            })
+        ],
+        view: new OlView({
+          center: fromLonLat(this.Address = this.YangjaeAddress), // 서울 양재
+          zoom: 16
+        })
+      })
     })
-    
+
+    this.olMap.on('pointermove', (e) => {
+            this.olMap.getTargetElement().style.cursor = '';
+            this.isShowOverlay = false;
+            this.olMap.removeOverlay(this.overlay);
+            this.olMap.forEachFeatureAtPixel(e.pixel, (feature) => {
+                if (feature.get('title') !== undefined) {
+                    this.isShowOverlay = true;
+                    this.selectedOverlayText = feature.get('title');
+                    this.selectedOverlayRating = feature.get('grade');
+                    const overlay = this.$refs.overlay;
+                    this.overlay = new Overlay({
+                        element: overlay,
+                        position: feature.getGeometry().getCoordinates(),
+                        positioning: 'bottom-center',
+                        offset: [0, -10],
+                    });
+                    this.olMap.addOverlay(this.overlay);
+                    this.olMap.getTargetElement().style.cursor = 'pointer';
+                }
+            });
+          })
+          
+
     },
 
     methods: {
-      getAddress (lon, lat) {
-      return axios.get(
-          'https://nominatim.openstreetmap.org/reverse',
-          {
-            params: {
-              format: 'json',
-              lon: lon,
-              lat: lat
-            }
-          })
-    },
-    foodAddress(){
-      return this.address;
-    },
+      MapClick(){
+        console.log('mapclick');
+      },
     }
   
   }
