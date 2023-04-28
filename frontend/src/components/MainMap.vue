@@ -57,27 +57,8 @@
       this.Address=toLonLat(e.coordinate);
       console.log(this.olMap.controls.rotate);
       this.$emit('emit-MainMap', this.Address); // StoreStatus.vue에 클릭 좌표값 보내기
-
-      this.olMap = new OlMap({
-        target: this.$refs.map,
-        controls : defaults({
-        attribution : false,
-        zoom : false,
-        rotate: false,
-      }),
-        attribution : false,
-        zoom : false,
-        rotate: false,
-        layers: [
-            new OlLayerTile({
-              source: new OSM()
-            })
-        ],
-        view: new OlView({
-          center: fromLonLat(this.Address = this.YangjaeAddress), // 서울 양재
-          zoom: 16
-        })
-      })
+      console.log(this.Address, 'Address');
+      this.olMap.getView().setCenter(fromLonLat(this.Address));
     })
 
     this.olMap.on('pointermove', (e) => {
