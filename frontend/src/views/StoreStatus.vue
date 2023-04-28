@@ -19,6 +19,7 @@
           placeholder="위치 정보 직접 입력하기"
           v-model="address"
           @keydown="addresslocation()"
+          size="40"
       />
     </div>
   <br><br><br><br><br>
@@ -114,6 +115,7 @@ export default {
       },
       emitMainMap(data){
         console.log('emit mapAdress', data);  // data input-placeholder에 값 넣기
+        this.address=data;
       },
   },
   

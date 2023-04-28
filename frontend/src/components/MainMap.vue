@@ -58,7 +58,8 @@
       console.log(this.olMap.controls.rotate);
       this.$emit('emit-MainMap', this.Address); // StoreStatus.vue에 클릭 좌표값 보내기
       console.log(this.Address, 'Address');
-      this.olMap.getView().setCenter(fromLonLat(this.Address));
+      this.olMap.getView().setCenter(fromLonLat(this.Address)); 
+      // this.Address -> StoreList.vue의 coordinate값 가져오기
     })
 
     this.olMap.on('pointermove', (e) => {
