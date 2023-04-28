@@ -1,5 +1,6 @@
 <template>
-    <div class="main-map" ref="map" @click="MapClick()">
+    <div class="main-map" ref="map">
+      <h2>{{ StoreAddress }}</h2>
     </div>
   </template>
   
@@ -16,14 +17,7 @@
   export default {
     name: 'MainMap',
 
-    // props: {
-    //   StoreAddress:{
-    //     type: String,
-    //     default(){
-    //       return "";
-    //     }
-    //   }
-    // },
+    props:['StoreAddress'],
     data: () => ({
       olMap: undefined,
       Address:null,
@@ -64,6 +58,11 @@
       // this.Address -> StoreList.vue의 coordinate값 가져오기
     })
 
+    console.log(this.StoreAddress);
+    if(this.StoreAddress ==! undefined){
+      this.olMap.getView().setCenter(fromLonLat(this.StoreAddress)); 
+      }
+
     this.olMap.on('pointermove', (e) => {
             this.olMap.getTargetElement().style.cursor = '';
             this.isShowOverlay = false;
@@ -90,9 +89,6 @@
     },
 
     methods: {
-      MapClick(){
-        console.log('mapclick');
-      },
     }
   
   }

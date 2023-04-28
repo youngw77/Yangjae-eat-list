@@ -1,5 +1,6 @@
 <template>
   <v-app>
+  <MainMap></MainMap>
   <v-form
     ref="form"
     v-model="valid"
@@ -20,7 +21,6 @@
       label="제목"
       required
     ></v-text-field>
-
     <v-textarea
       class="afterContent"
       background-color="amber lighten-4"
@@ -51,7 +51,13 @@
 </template>
 
 <script>
+import MainMap from '@/components/MainMap.vue';
+
   export default {
+    components: {
+      MainMap
+    },
+
     data: () => ({
       valid: true,
       StoreName: '',

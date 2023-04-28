@@ -24,7 +24,12 @@
       </tbody>
     </table>
     <button @click="getList">Spring 데이터 호출</button>
-        <MainMap class="map" v-on:emit-MainMapCenter="emitMainMapCenter"></MainMap>
+        <MainMap 
+        class="mapStyle" 
+        v-on:emit-MainMapCenter="emitMainMapCenter"
+        :store-address="foodList.coordinate"
+        ></MainMap>
+        <!-- props로 this.map 값을 MainMap으로 넘겨 초기 좌표값 center로 잡기 -->
     </v-app>
 </template>
 
@@ -113,7 +118,6 @@ export default {
       this.$router.push(`/StoreList/${this.selectedFood.name}`);
     },
     emitMainMapCenter(data){
-      console.log('mapData', data);
       this.map=data;
     },
   },
@@ -124,7 +128,7 @@ export default {
 </script>
 
 <style scoped>
-.map{
+.mapStyle{
   right:200px;
 }
 
