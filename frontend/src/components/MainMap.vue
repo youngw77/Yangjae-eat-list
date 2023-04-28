@@ -52,11 +52,13 @@
           zoom: 16
         })
       })
+      this.$emit('emit-MainMapCenter', this.olMap); 
+      // StoreList.vue에 OlMap데이터 보낸 후 center 좌표 값 StoreList로 바꿔주기
       this.olMap.on('click', async (e) => {
       console.log(toLonLat(e.coordinate));
       this.Address=toLonLat(e.coordinate);
-      console.log(this.olMap.controls.rotate);
-      this.$emit('emit-MainMap', this.Address); // StoreStatus.vue에 클릭 좌표값 보내기
+      this.$emit('emit-MainMap', this.Address); 
+      // StoreStatus.vue에 클릭 좌표값 보내기
       console.log(this.Address, 'Address');
       this.olMap.getView().setCenter(fromLonLat(this.Address)); 
       // this.Address -> StoreList.vue의 coordinate값 가져오기
