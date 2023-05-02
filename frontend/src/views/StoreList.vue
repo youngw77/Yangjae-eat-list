@@ -27,7 +27,8 @@
         <MainMap 
         class="mapStyle" 
         v-on:emit-MainMapCenter="emitMainMapCenter"
-        :store-address="foodList.coordinate"
+        :store-address="foodList[1].coordinate"
+        ref="Yangjae"
         ></MainMap>
         <!-- props로 this.map 값을 MainMap으로 넘겨 초기 좌표값 center로 잡기 -->
     </v-app>
@@ -44,7 +45,6 @@ import {fromLonLat} from 'ol/proj.js'
 
 export default {
   name: 'StoreList',
-
   components: {
     MainMap
   },
@@ -101,7 +101,7 @@ export default {
     },
     rowClick(food, index){
       // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
-      console.log(this.map);
+      console.log(this.map.getView().values_.center);
       this.map.getView().setCenter(fromLonLat(this.foodList[index].coordinate));
       console.log(index);
       if(this.selectedFood == food){

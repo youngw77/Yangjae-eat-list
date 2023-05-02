@@ -1,6 +1,6 @@
 <template>
     <div class="main-map" ref="map">
-      <h2>{{ StoreAddress }}</h2>
+      <h2 v-bind:StoreAddress="StoreAddress">{{ StoreAddress }}</h2>
     </div>
   </template>
   
@@ -11,7 +11,6 @@
   import OSM from 'ol/source/OSM';
   import {fromLonLat, toLonLat} from 'ol/proj.js'
   import {defaults} from 'ol/control.js';
-  import Overlay from 'ol/Overlay.js';
   // import Geocoder from 'ol-geocoder';
   
   export default {
@@ -22,7 +21,6 @@
       olMap: undefined,
       Address:null,
       YangjaeAddress:[127.0376424, 37.478888],
-
     }),
 
     mounted() {
@@ -59,32 +57,9 @@
     })
 
     console.log(this.StoreAddress);
-    if(this.StoreAddress ==! undefined){
+    if(this.StoreAddress !== undefined){
       this.olMap.getView().setCenter(fromLonLat(this.StoreAddress)); 
       }
-
-    this.olMap.on('pointermove', (e) => {
-            this.olMap.getTargetElement().style.cursor = '';
-            this.isShowOverlay = false;
-            this.olMap.removeOverlay(this.overlay);
-            this.olMap.forEachFeatureAtPixel(e.pixel, (feature) => {
-                if (feature.get('title') !== undefined) {
-                    this.isShowOverlay = true;
-                    this.selectedOverlayText = feature.get('title');
-                    this.selectedOverlayRating = feature.get('grade');
-                    const overlay = this.$refs.overlay;
-                    this.overlay = new Overlay({
-                        element: overlay,
-                        position: feature.getGeometry().getCoordinates(),
-                        positioning: 'bottom-center',
-                        offset: [0, -10],
-                    });
-                    this.olMap.addOverlay(this.overlay);
-                    this.olMap.getTargetElement().style.cursor = 'pointer';
-                }
-            });
-          })
-          
 
     },
 
