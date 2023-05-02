@@ -13,7 +13,7 @@
         <tr v-for="(food, index) in foodList" 
         :key="'food_' + food.id"
         :active="selectedFood != null && selectedFood.name == food.name"
-        @click="(e) => rowClick(food, index)"
+        @click="(e) => [rowClick(food, index), indexClick(index)]"
         @dblclick="(e) => rowDblClick(food)"
         >
           <td>{{ food.id }}</td>
@@ -25,9 +25,9 @@
     </table>
     <button @click="getList">Spring 데이터 호출</button>
         <MainMap 
-        class="mapStyle" 
+        class="mapStyle"
         v-on:emit-MainMapCenter="emitMainMapCenter"
-        :store-address="foodList[1].coordinate"
+        :store-address="foodList[this.index].coordinate"
         ref="Yangjae"
         ></MainMap>
         <!-- props로 this.map 값을 MainMap으로 넘겨 초기 좌표값 center로 잡기 -->
@@ -53,6 +53,7 @@ export default {
     list: [],
     selectedFood: null,
     map: null,
+    index: 0,
     foodList: [ // foodList DB data 가져오기
     {
       id: 1,
@@ -97,13 +98,12 @@ export default {
     },
     foodSelect(index){
       this.$router.push(`/StoreList/${this.foodList[index].name}`);
-      
     },
     rowClick(food, index){
       // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
-      console.log(this.map.getView().values_.center);
       this.map.getView().setCenter(fromLonLat(this.foodList[index].coordinate));
-      console.log(index);
+      this.index = index;
+      console.log(this.index);
       if(this.selectedFood == food){
         this.selectedFood = null;
       } else {
@@ -119,6 +119,9 @@ export default {
     },
     emitMainMapCenter(data){
       this.map=data;
+    },
+    indexClick(index){
+      this.index = index;
     },
   },
 

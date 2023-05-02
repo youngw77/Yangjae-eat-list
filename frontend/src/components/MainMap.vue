@@ -1,6 +1,5 @@
 <template>
     <div class="main-map" ref="map">
-      <h2 v-bind:StoreAddress="StoreAddress">{{ StoreAddress }}</h2>
     </div>
   </template>
   
