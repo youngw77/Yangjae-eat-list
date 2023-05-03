@@ -103,6 +103,7 @@ export default {
       // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
       this.map.getView().setCenter(fromLonLat(this.foodList[index].coordinate));
       this.index = index;
+      console.log(this.$refs.Yangjae.StoreAddress);
       console.log(this.index);
       if(this.selectedFood == food){
         this.selectedFood = null;
@@ -119,6 +120,7 @@ export default {
     },
     emitMainMapCenter(data){
       this.map=data;
+      console.log(this.map, 'emitMainMapCenter');
     },
     indexClick(index){
       this.index = index;

@@ -15,11 +15,15 @@
   export default {
     name: 'MainMap',
 
-    props:['StoreAddress'],
+    props:[
+      'StoreAddress',
+      'StoreIndex'
+    ],
     data: () => ({
       olMap: undefined,
-      Address:null,
-      YangjaeAddress:[127.0376424, 37.478888],
+      Address: null,
+      YangjaeAddress: [127.0376424, 37.478888],
+      index: null,
     }),
 
     mounted() {
@@ -54,11 +58,15 @@
       this.olMap.getView().setCenter(fromLonLat(this.Address)); 
       // this.Address -> StoreList.vue의 coordinate값 가져오기
     })
+ 
 
     console.log(this.StoreAddress);
     if(this.StoreAddress !== undefined){
-      this.olMap.getView().setCenter(fromLonLat(this.StoreAddress)); 
+      this.olMap.getView().setCenter(fromLonLat(this.StoreAddress));
       }
+
+      
+
 
     },
 
@@ -72,6 +80,9 @@
   .main-map {
     width: 40%;
     height: 40%;
+    
   }
+
+  
   
   </style>

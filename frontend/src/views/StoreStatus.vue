@@ -15,8 +15,11 @@
     </div>
     <MainMap 
     class="foodMap" 
+    v-on:emit-MainMapCenter="emitMainMapCenter"
     v-on:emit-MainMap="emitMainMap"
     :store-address="foodList[this.index].coordinate"
+    :store-index="this.index"
+    ref="Store"
     ></MainMap>
     <div class="location-info-area">
       <input
@@ -87,7 +90,7 @@
 import MainMap from '@/components/MainMap.vue';
 import {getList} from "@/services/UploadService";
 import StoreList from "@/views/StoreList.vue";
-// import {fromLonLat} from 'ol/proj.js'
+import {fromLonLat} from 'ol/proj.js'
 
 
 
@@ -103,8 +106,8 @@ export default {
     window: 0,
     User:'User',
     address: undefined,
+    map: null,
     index:StoreList.data().index, // 문제점: data().index의 초기 값만 받아오고 this.index로 변한 값 변경x
-    // index: 1,
     // index로 Status 지도 center 값 이동 this.index StoreList에서 index값 받아오기
     foodList: [ // foodList DB data 가져오기
     {
@@ -141,7 +144,11 @@ export default {
   }),
 
   mounted(){
-    this.getListInfo(this.$route.params.StoreName);
+    console.log(this.$refs.Store.index);
+    console.log(this.index);
+    console.log(this.$refs.Store.Address);
+    // this.map.getView().setCenter(fromLonLat(this.$refs.Store.Address));
+    // console.log(StoreList.methods.indexClick , 'methods');
     // this.map.getView().setCenter(fromLonLat(this.foodList[StoreList.data().index].coordinate));
   },
 
@@ -155,14 +162,24 @@ export default {
         this.$refs.form.validate()
       },
     addresslocation(){
-      console.log(MainMap.data);
+      console.log(this.address);
+      this.map.getView().setCenter(fromLonLat(this.address));
     },
     emitMainMap(data){
       console.log('emit mapAdress', data);  // data input-placeholder에 값 넣기
       this.address=data;
+      console.log(this.address);
     },
     foodCoordinate(){
       StoreList.data().index;
+    },
+    emitMainMapCenter(data){
+      this.map=data;
+      console.log(this.map, 'emitMainMapCenter');
+    },
+    emitIndex(index){
+      this.index = index;
+      console.log(index, 'index');
     },
   },
   
