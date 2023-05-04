@@ -13,7 +13,7 @@
         <tr v-for="(food, index) in foodList" 
         :key="'food_' + food.id"
         :active="selectedFood != null && selectedFood.name == food.name"
-        @click="(e) => [rowClick(food, index), indexClick(index)]"
+        @click="(e) => [rowClick(food, index), indexClick(index), onGotoStatus(index)]"
         @dblclick="(e) => rowDblClick(food)"
         >
           <td>{{ food.id }}</td>
@@ -97,7 +97,13 @@ export default {
       })
     },
     foodSelect(index){
-      this.$router.push(`/StoreList/${this.foodList[index].name}`);
+      // this.$router.push(`/StoreList/${this.foodList[index].name}`);
+      this.$router.push({
+        name: 'StoreStatus',
+        params: {
+          listIndex: index
+        }
+      })
     },
     rowClick(food, index){
       // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
@@ -115,8 +121,13 @@ export default {
       this.selectedFood = food;
       this.onGotoStatus();
     },
-    onGotoStatus(){
-      this.$router.push(`/StoreList/${this.selectedFood.name}`);
+    onGotoStatus(index){
+      this.$router.push({
+        name: 'StoreStatus',
+        params: {
+          listIndex: index
+        }
+      })
     },
     emitMainMapCenter(data){
       this.map=data;

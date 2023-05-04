@@ -53,16 +53,19 @@
                   color="grey"
                   class="mr-4"
                 ></v-avatar>
-                <strong class="text-h6">{{User}} {{ n }}</strong>
+                <strong 
+                class="text-h6" 
+                v-for="(chat, index) in chatList" :key="chat.key"
+                >{{User}} {{ index + 1 }}</strong>
                 <!-- <v-spacer></v-spacer> -->
                 <v-btn icon>
                   <v-icon>mdi-account</v-icon>
                 </v-btn>
               </v-row>
-
-              <p>
-                맛있어요!
-              </p>
+              <div v-for="chat in chatList" :key="chat.key">
+                <li>{{ chat.name }}</li>
+                <li>{{ chat.content }}</li>
+              </div>
             </v-card-text>
           </v-card>
         </v-window-item>
@@ -98,7 +101,7 @@ export default {
   name: 'StoreStatus',
 
   components: {
-    MainMap
+    MainMap,
   },
 
   data: () => ({
@@ -107,7 +110,8 @@ export default {
     User:'User',
     address: undefined,
     map: null,
-    index:StoreList.data().index, // 문제점: data().index의 초기 값만 받아오고 this.index로 변한 값 변경x
+    index: 0, // 문제점: data().index의 초기 값만 받아오고 this.index로 변한 값 변경x
+    // index: this.$route.params.listIndex,
     // index로 Status 지도 center 값 이동 this.index StoreList에서 index값 받아오기
     foodList: [ // foodList DB data 가져오기
     {
@@ -141,15 +145,23 @@ export default {
       coordinate:[127.039651240311, 37.48410336645273],
     },
   ],
+  chatList: [
+    {
+      id:1,
+      name: 'user1',
+      content: '맛있어요!'
+    },
+    {
+      id:2,
+      name: 'user2',
+      content: '별로에요',
+    }
+  ],
   }),
 
   mounted(){
-    console.log(this.$refs.Store.index);
-    console.log(this.index);
-    console.log(this.$refs.Store.Address);
-    // this.map.getView().setCenter(fromLonLat(this.$refs.Store.Address));
-    // console.log(StoreList.methods.indexClick , 'methods');
-    // this.map.getView().setCenter(fromLonLat(this.foodList[StoreList.data().index].coordinate));
+    this.index = this.$route.params.listIndex;
+    this.map.getView().setCenter(fromLonLat(this.foodList[this.index].coordinate));
   },
 
   methods:{
