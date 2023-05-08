@@ -55,8 +55,7 @@
                 ></v-avatar>
                 <strong 
                 class="text-h6" 
-                v-for="(chat, index) in chatList" :key="chat.key"
-                >{{User}} {{ index + 1 }}</strong>
+                >{{User}}</strong>
                 <!-- <v-spacer></v-spacer> -->
                 <v-btn icon>
                   <v-icon>mdi-account</v-icon>
@@ -72,7 +71,7 @@
       </v-window>
       <br>
       <form>
-      <textarea name="" id="" cols="50" rows="5" placeholder="abc" class="userTextarea"></textarea>
+      <textarea name="" id="" cols="50" rows="5" placeholder="댓글을 입력해주세요." class="userTextarea"></textarea>
       <br>
       <v-btn
       class="mr-2"
@@ -161,6 +160,7 @@ export default {
 
   mounted(){
     this.index = this.$route.params.listIndex;
+    this.address = this.foodList[this.index].coordinate;
     this.map.getView().setCenter(fromLonLat(this.foodList[this.index].coordinate));
   },
 
