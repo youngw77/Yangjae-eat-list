@@ -64,9 +64,9 @@
                   <v-icon>mdi-account</v-icon>
                 </v-btn>
               </v-row>
-              <div v-for="chat in chatList" :key="chat.key">
-                <li>{{ chat.name }}</li>
-                <li>{{ chat.content }}</li>
+              <div v-for="chat in userChatList" :key="chat.key">
+                <li>{{ chat.user_id }}</li>
+                <li>{{ chat.context }}</li>
               </div>
             </v-card-text>
           </v-card>
@@ -74,7 +74,12 @@
       </v-window>
       <br>
       <form>
-      <textarea name="" id="" cols="50" rows="5" placeholder="댓글을 입력해주세요." class="userTextarea"></textarea>
+      <textarea 
+      cols="50" 
+      rows="5" 
+      placeholder="댓글을 입력해주세요." 
+      class="userTextarea"
+      ></textarea>
       <br>
       <v-btn
       class="mr-2"
@@ -116,50 +121,9 @@ export default {
     index: 0,
     textArea: '',
     foodText: '',
-    foodList: [ // foodList DB data 가져오기
-    {
-      id: 1,
-      name: '한양돈까스',
-      evaluation: '★★★★★',
-      coordinate: [127.03957338534723, 37.477294430405706],
-    },
-    {
-      id: 2,
-      name: '순대국',
-      evaluation: '★★★★☆',
-      coordinate:[127.03627413028183, 37.48363196182872],
-    },
-    {
-      id: 3,
-      name: '싸다 김밥',
-      evaluation: '★★★★☆',
-      coordinate:[127.03911429547514, 37.477783953208885],
-    },
-    {
-      id: 4,
-      name: '최군 식당',
-      evaluation: '★★★★☆',
-      coordinate:[127.039803987076, 37.47748222912335],
-    },
-    {
-      id: 5,
-      name: '태국 식당 356',
-      evaluation: '★★★☆☆',
-      coordinate:[127.039651240311, 37.48410336645273],
-    },
-  ],
-  chatList: [
-    {
-      id:1,
-      name: 'user1',
-      content: '맛있어요!'
-    },
-    {
-      id:2,
-      name: 'user2',
-      content: '별로에요',
-    }
-  ],
+    userChat: '',
+    userChatList: data.Comment,
+    foodList: data.foodList,
   }),
 
   mounted(){
@@ -168,6 +132,7 @@ export default {
     this.map.getView().setCenter(fromLonLat(this.foodList[this.index].coordinate));
     this.textArea = data.Content[this.index].context;
     this.foodText = data.Content[this.index].title;
+    this.userChat = data.Comment[this.index].context;
   },
 
   methods:{
