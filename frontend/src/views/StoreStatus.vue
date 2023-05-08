@@ -1,16 +1,19 @@
 <template>
   <v-app>
     <span>
-      <input type="text" 
+      <input 
+      type="text" 
+      v-model="foodText"
       placeholder="제목" 
-      size="69px">
+      size="69px"
+      >
     </span>
     <div>
-      <textarea name="" 
-      id="" 
+      <textarea 
       cols="70" 
       rows="10" 
-      class="foodTextarea" 
+      class="foodTextarea"
+      v-model="textArea"
       placeholder="내용"></textarea>
     </div>
     <MainMap 
@@ -93,6 +96,7 @@ import MainMap from '@/components/MainMap.vue';
 import {getList} from "@/services/UploadService";
 import StoreList from "@/views/StoreList.vue";
 import {fromLonLat} from 'ol/proj.js'
+import data from '@/data/datas.js';
 
 
 
@@ -109,9 +113,9 @@ export default {
     User:'User',
     address: undefined,
     map: null,
-    index: 0, // 문제점: data().index의 초기 값만 받아오고 this.index로 변한 값 변경x
-    // index: this.$route.params.listIndex,
-    // index로 Status 지도 center 값 이동 this.index StoreList에서 index값 받아오기
+    index: 0,
+    textArea: '',
+    foodText: '',
     foodList: [ // foodList DB data 가져오기
     {
       id: 1,
@@ -162,6 +166,8 @@ export default {
     this.index = this.$route.params.listIndex;
     this.address = this.foodList[this.index].coordinate;
     this.map.getView().setCenter(fromLonLat(this.foodList[this.index].coordinate));
+    this.textArea = data.Content[this.index].context;
+    this.foodText = data.Content[this.index].title;
   },
 
   methods:{
@@ -171,7 +177,10 @@ export default {
         })
     },
     validate () {
-        this.$refs.form.validate()
+        // this.$refs.form.validate()
+        this.$router.push({
+          path: `/StoreStatus/${this.index}`
+        })
       },
     addresslocation(){
       console.log(this.address);
