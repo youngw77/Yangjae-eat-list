@@ -72,7 +72,7 @@ export default {
       {
         comment_id: 1,
         user_id: 1,
-        content_id: 3,
+        content_id: 0,
         context: '댓글1',
         created_at: '2019-03-29 14:11:11',
         updated_at: null
@@ -80,7 +80,7 @@ export default {
       {
         comment_id: 2,
         user_id: 3,
-        content_id: 3,
+        content_id: 1,
         context: '댓글2',
         created_at: '2019-03-29 16:11:11',
         updated_at: null
@@ -88,8 +88,24 @@ export default {
       {
         comment_id: 3,
         user_id: 2,
-        content_id: 1,
+        content_id: 2,
         context: '댓글3',
+        created_at: '2019-03-29 14:11:11',
+        updated_at: null
+      },
+      {
+        comment_id: 4,
+        user_id: 2,
+        content_id: 3,
+        context: '댓글4',
+        created_at: '2019-03-29 14:11:11',
+        updated_at: null
+      },
+      {
+        comment_id: 5,
+        user_id: 2,
+        content_id: 4,
+        context: '댓글5',
         created_at: '2019-03-29 14:11:11',
         updated_at: null
       }

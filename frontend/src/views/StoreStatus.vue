@@ -32,8 +32,8 @@
           size="40"
       />
     </div>
-  <br><br><br><br><br>
-    <div class="foodReviewRow">
+  <br><br><hr><br>
+    <!-- <div class="foodReviewRow">
 
   <v-row align="center">
     <v-col>
@@ -58,20 +58,40 @@
                 ></v-avatar>
                 <strong 
                 class="text-h6" 
-                >{{User}}</strong>
-                <!-- <v-spacer></v-spacer> -->
+                >{{User}} {{ n }}</strong>
                 <v-btn icon>
                   <v-icon>mdi-account</v-icon>
                 </v-btn>
-              </v-row>
-              <div v-for="chat in userChatList" :key="chat.key">
+              </v-row> -->
+              <!-- <div v-for="chat in userChatList" :key="chat.key">
                 <li>{{ chat.user_id }}</li>
                 <li>{{ chat.context }}</li>
-              </div>
-            </v-card-text>
+              </div> -->
+              <div 
+              v-for="item in comments" 
+              :key="item.comment_id"
+              class="comment-list-item"
+              >
+                <div class="comment-list-item-name">
+                  <div>{{ name }}</div>
+                  <div>{{ item.created_at }}</div>
+                </div>
+                <div class="comment-list-item-context">
+                  <div>{{ item.context }}</div>
+                </div>
+                <div class="comment-list-item-button">
+                  <v-btn>수정</v-btn>
+                  <br>
+                  <v-btn>삭제</v-btn>
+                </div>
+                </div>
+                <div>
+                <CommentCreate :index="index"/>
+                </div>
+            <!-- </v-card-text>
           </v-card>
         </v-window-item>
-      </v-window>
+      </v-window> -->
       <br>
       <form>
       <textarea 
@@ -89,9 +109,9 @@
       입력
     </v-btn>
   </form>
-    </v-col>
+    <!-- </v-col>
   </v-row>
-</div>
+</div> -->
 </v-app>
 </template>
 
@@ -102,7 +122,7 @@ import {getList} from "@/services/UploadService";
 import StoreList from "@/views/StoreList.vue";
 import {fromLonLat} from 'ol/proj.js'
 import data from '@/data/datas.js';
-
+import CommentCreate from '@/components/CommentCreate.vue';
 
 
 export default {
@@ -110,10 +130,11 @@ export default {
 
   components: {
     MainMap,
+    CommentCreate,
   },
 
   data: () => ({
-    length: 3,
+    length: data.Comment.length,
     window: 0,
     User:'User',
     address: undefined,
@@ -124,6 +145,8 @@ export default {
     userChat: '',
     userChatList: data.Comment,
     foodList: data.foodList,
+    comments: '',
+    name: '',
   }),
 
   mounted(){
@@ -133,6 +156,9 @@ export default {
     this.textArea = data.Content[this.index].context;
     this.foodText = data.Content[this.index].title;
     this.userChat = data.Comment[this.index].context;
+    this.comments = data.Comment.filter(item => item.content_id === this.index);
+    this.name = data.User.filter(item => item.user_id === data.User[this.index].user_id);
+    this.name = this.name[0].name;
   },
 
   methods:{
@@ -167,6 +193,9 @@ export default {
       this.index = index;
       console.log(index, 'index');
     },
+    reloadComment(){
+
+    },
   },
   
 };
@@ -194,6 +223,38 @@ export default {
 
 .location h2{
   right:20px;
+}
+
+.comment-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1em;
+}
+.comment-list-item-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid black;
+  padding: 1em;
+}
+.comment-list-item-context {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50em;
+  border: 0.5px solid black;
+}
+.comment-list-item-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid black;
+  padding: 1em;
+}
+.btn {
+  margin-bottom: 1em;
 }
 
 </style>
