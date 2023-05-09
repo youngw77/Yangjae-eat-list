@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th>순위</th>
+          <th>작성자</th>
           <th>음식점</th>
           <th>후기</th>
           <th>별점</th>
@@ -17,6 +18,7 @@
         @dblclick="(e) => rowDblClick(food)"
         >
           <td>{{ food.id }}</td>
+          <td>{{ food.writer }}</td>
           <td>{{ food.name }}</td>
           <td><button @click="foodSelect(index)">바로가기</button></td>
           <td><button>{{ food.evaluation }}</button></td>
@@ -133,12 +135,15 @@ table thead tr th:nth-child(1){
   width: 40px;
 }
 table thead tr th:nth-child(2){
-  width: 300px;
-}
-table thead tr th:nth-child(3){
   width: 60px;
 }
+table thead tr th:nth-child(3){
+  width: 300px;
+}
 table thead tr th:nth-child(4){
+  width: 80px;
+}
+table thead tr th:nth-child(5){
   width: 80px;
 }
 

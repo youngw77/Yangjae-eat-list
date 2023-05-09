@@ -208,7 +208,7 @@ export default {
 }
 
 .userTextarea{
-  background-color: rgb(223, 220, 220);
+  background-color: rgb(99, 96, 96);
   border:1px solid black;
 }
 

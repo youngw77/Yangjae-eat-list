@@ -1,17 +1,18 @@
 <template>
     <v-app>
-        <input type="text">
-            <form>
-                <textarea 
-                id="textarea" 
-                cols="30" 
-                rows="10"
-                :placeholder="'댓글을 달아주세요'"
-                >
-                </textarea>
-                    <input type="text">
-                <v-btn variant="info" @click="createComment">작성하기</v-btn>
-            </form>
+        <form>
+            <textarea 
+            id="textarea" 
+            class="commentText"
+            cols="60" 
+            rows="5"
+            v-model="context"
+            :placeholder="'댓글을 달아주세요'"
+            >
+            </textarea>
+            <br>
+            <v-btn variant="info" @click="createComment">작성하기</v-btn>
+        </form>
     </v-app>
 </template>
 <script>
@@ -32,21 +33,24 @@ export default{
         createComment(){
             data.Comment.push(
                 {
-                   content_id: data.Comment[data.Comment.length -1].comment_id + 1,
+                    // comment_id: data.Comment[data.Comment.length -1].comment_id + 1,
+                    comment_id: this.index + 1,
                     user_id: 1,
-                    title: data.Comment[this.index].title,
-                    context: data.Comment[this.index].context,
+                    content_id: 4,
+                    context: this.context,
                     created_at: '2019-01-01 13:11:42',
                     updated_at: null
                 },
             )
+            this.context='';
+            console.log(data.Comment[data.Comment.length -1].comment_id + 1, 'commit check');
         },
     },
 }
 </script>
 
 <style scoped>
-.textarea{
-    background-color: gray;
+.commentText{
+    background-color: rgb(255, 238, 254);
 }
 </style>
