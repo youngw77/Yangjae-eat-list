@@ -17,7 +17,7 @@ const routes = [
         meta: {name:"Create List", icon: "mdi-view-list"},
     },
     {
-        path: "/StoreStatus/:listIndex",
+        path: "/StoreStatus",
         name: "StoreStatus",
         component: StoreStatus,
     },

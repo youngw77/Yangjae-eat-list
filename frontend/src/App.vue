@@ -9,7 +9,10 @@
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>양재 맛집 리스트</v-toolbar-title>
+      <v-toolbar-title 
+      @click="mainPage()"
+      class="topBar"
+      >양재 맛집 리스트</v-toolbar-title>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -63,8 +66,8 @@ export default {
     ],
   }),
   methods:{
-    ListPage(){
-      console.log("ListPage");
+    mainPage(){
+      this.$router.push('StoreList').catch(() => {});
     },
   },
   mounted(){
@@ -82,6 +85,11 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+.topBar{
+  cursor:pointer;
+
 }
 
 </style>

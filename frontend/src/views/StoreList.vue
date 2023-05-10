@@ -71,7 +71,7 @@ export default {
       // this.$router.push(`/StoreList/${this.foodList[index].name}`);
       this.$router.push({
         name: 'StoreStatus',
-        params: {
+        query: {
           listIndex: index
         }
       })
@@ -92,19 +92,11 @@ export default {
       this.selectedFood = food;
       this.$router.push({
         name: 'StoreStatus',
-        params: {
+        query: {
           listIndex: index
         }
       })
     },
-    // onGotoStatus(index){
-    //   this.$router.push({
-    //     name: 'StoreStatus',
-    //     params: {
-    //       listIndex: index
-    //     }
-    //   })
-    // },
     emitMainMapCenter(data){
       this.map=data;
       console.log(this.map, 'emitMainMapCenter');

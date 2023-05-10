@@ -51,9 +51,7 @@
         <v-btn>삭제</v-btn>
       </div>
       </div>
-      <div>
-      <CommentCreate :writer="writer" :reloadComment="reloadComment"/>
-      </div>
+      <CommentCreate :writer="writer" :reloadComment="reloadComment"></CommentCreate>
   </v-app>
 </template>
 
@@ -93,7 +91,7 @@ export default {
   }),
 
   mounted(){
-    this.index = this.$route.params.listIndex;
+    this.index = this.$route.query.listIndex;
     this.address = this.foodList[this.index].coordinate;
     this.map.getView().setCenter(fromLonLat(this.foodList[this.index].coordinate));
     this.textArea = data.Content[this.index].context;
@@ -103,6 +101,7 @@ export default {
     this.name = data.User.filter(item => item.name === data.foodList[this.index].writer);
     this.name = this.name[0].name;
     this.writer = data.foodList[this.index].writer;
+    console.log(this.writer);
   },
 
   methods:{
@@ -111,12 +110,6 @@ export default {
             console.log(result);
         })
     },
-    validate () {
-        // this.$refs.form.validate()
-        this.$router.push({
-          path: `/StoreStatus/${this.index}`
-        })
-      },
     addresslocation(){
       console.log(this.address);
       this.map.getView().setCenter(fromLonLat(this.address));

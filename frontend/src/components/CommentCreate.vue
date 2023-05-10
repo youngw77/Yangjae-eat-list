@@ -50,7 +50,8 @@ export default{
         },
     },
     mounted(){
-        this.index=this.$route.params.listIndex;
+        this.index=this.$route.query.listIndex;
+        console.log(this.index);
     },
 }
 </script>
