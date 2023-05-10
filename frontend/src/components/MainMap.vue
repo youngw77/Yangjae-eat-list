@@ -44,7 +44,7 @@
         ],
         view: new OlView({
           center: fromLonLat(this.Address = this.YangjaeAddress), // 서울 양재
-          zoom: 16
+          zoom: 17.5
         })
       })
       this.$emit('emit-MainMapCenter', this.olMap); 

@@ -34,9 +34,10 @@
     </div>
     <br><br><hr><br>
     <div 
-    v-for="item in comments" 
+    v-for="(item, index) in comments" 
     :key="item.comment_id"
     class="comment-list-item"
+    ref="item"
     >
       <div class="comment-list-item-name">
         <div>{{ name }}</div>
@@ -48,7 +49,7 @@
       <div class="comment-list-item-button">
         <v-btn>수정</v-btn>
         <br>
-        <v-btn>삭제</v-btn>
+        <v-btn @click="deleteComment(index)">삭제</v-btn>
       </div>
       </div>
       <CommentCreate :writer="writer" :reloadComment="reloadComment"></CommentCreate>
@@ -85,9 +86,10 @@ export default {
     userChat: '',
     userChatList: data.Comment,
     foodList: data.foodList,
-    comments: '',
+    comments: [],
     name: '',
     writer: '',
+    commentsList: [],
   }),
 
   mounted(){
@@ -133,6 +135,17 @@ export default {
     reloadComment(){
       this.comments = data.Comment.filter(item => item.content_id === this.index);
     },
+    deleteComment(index){
+      const DeleteIndex = this.comments[index].comment_id;
+      for(let i=0; i<data.Comment.length; i++){
+        if(data.Comment[i].comment_id === DeleteIndex){
+          data.Comment.splice(i, 1);
+        }
+      }
+      this.comments.splice(index, 1);
+      this.reloadComment();
+    },
+
   },
   
 };

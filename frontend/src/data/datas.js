@@ -126,7 +126,7 @@ export default {
       writer: 'User1',
       name: '한양돈까스',
       evaluation: '★★★★★',
-      coordinate: [127.03957338534723, 37.477294430405706],
+      coordinate: [127.03957534077702, 37.47721531792493],
     },
     {
       id: 2,
@@ -145,7 +145,7 @@ export default {
     {
       id: 4,
       writer: 'User4',
-      name: '최군 식당',
+      name: '공복 식당',
       evaluation: '★★★★☆',
       coordinate:[127.039803987076, 37.47748222912335],
     },
