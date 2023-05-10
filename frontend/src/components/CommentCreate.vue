@@ -59,7 +59,7 @@ export default{
                     comment_id: data.Comment[data.Comment.length -1].comment_id + 1,
                     // comment_id: this.index + 1,
                     user_id: 1,
-                    content_id: 4,
+                    content_id: this.index,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
                     updated_at: null
