@@ -14,8 +14,8 @@
         <tr v-for="(food, index) in foodList" 
         :key="'food_' + food.id"
         :active="selectedFood != null && selectedFood.name == food.name"
-        @click="(e) => [rowClick(food, index), indexClick(index), onGotoStatus(index)]"
-        @dblclick="(e) => rowDblClick(food)"
+        @click="(e) => [rowClick(food, index), indexClick(index)]"
+        @dblclick="(e) => rowDblClick(food, index)"
         >
           <td>{{ food.id }}</td>
           <td>{{ food.writer }}</td>
@@ -88,11 +88,8 @@ export default {
         this.selectedFood = food;
       }
     },
-    rowDblClick(food){
+    rowDblClick(food, index){
       this.selectedFood = food;
-      this.onGotoStatus();
-    },
-    onGotoStatus(index){
       this.$router.push({
         name: 'StoreStatus',
         params: {
@@ -100,6 +97,14 @@ export default {
         }
       })
     },
+    // onGotoStatus(index){
+    //   this.$router.push({
+    //     name: 'StoreStatus',
+    //     params: {
+    //       listIndex: index
+    //     }
+    //   })
+    // },
     emitMainMapCenter(data){
       this.map=data;
       console.log(this.map, 'emitMainMapCenter');

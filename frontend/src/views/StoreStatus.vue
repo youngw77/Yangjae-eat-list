@@ -32,87 +32,29 @@
           size="40"
       />
     </div>
-  <br><br><hr><br>
-    <!-- <div class="foodReviewRow">
-
-  <v-row align="center">
-    <v-col>
-      <v-window
-        v-model="window"
-        class="elevation-1"
-        vertical
-      >
-        <v-window-item
-          v-for="n in length"
-          :key="n"
-        >
-          <v-card flat>
-            <v-card-text>
-              <v-row
-                class="mb-4"
-                align="center"
-              >
-                <v-avatar
-                  color="grey"
-                  class="mr-4"
-                ></v-avatar>
-                <strong 
-                class="text-h6" 
-                >{{User}} {{ n }}</strong>
-                <v-btn icon>
-                  <v-icon>mdi-account</v-icon>
-                </v-btn>
-              </v-row> -->
-              <!-- <div v-for="chat in userChatList" :key="chat.key">
-                <li>{{ chat.user_id }}</li>
-                <li>{{ chat.context }}</li>
-              </div> -->
-              <div 
-              v-for="item in comments" 
-              :key="item.comment_id"
-              class="comment-list-item"
-              >
-                <div class="comment-list-item-name">
-                  <div>{{ name }}</div>
-                  <div>{{ item.created_at }}</div>
-                </div>
-                <div class="comment-list-item-context">
-                  <div>{{ item.context }}</div>
-                </div>
-                <div class="comment-list-item-button">
-                  <v-btn>수정</v-btn>
-                  <br>
-                  <v-btn>삭제</v-btn>
-                </div>
-                </div>
-                <div>
-                <CommentCreate :index="index"/>
-                </div>
-            <!-- </v-card-text>
-          </v-card>
-        </v-window-item>
-      </v-window> -->
-      <br>
-      <form>
-      <textarea 
-      cols="50" 
-      rows="5" 
-      placeholder="댓글을 입력해주세요." 
-      class="userTextarea"
-      ></textarea>
-      <br>
-      <v-btn
-      class="mr-2"
-      @click="validate"
-      color="gray"
+    <br><br><hr><br>
+    <div 
+    v-for="item in comments" 
+    :key="item.comment_id"
+    class="comment-list-item"
     >
-      입력
-    </v-btn>
-  </form>
-    <!-- </v-col>
-  </v-row>
-</div> -->
-</v-app>
+      <div class="comment-list-item-name">
+        <div>{{ name }}</div>
+        <div>{{ item.created_at }}</div>
+      </div>
+      <div class="comment-list-item-context">
+        <div>{{ item.context }}</div>
+      </div>
+      <div class="comment-list-item-button">
+        <v-btn>수정</v-btn>
+        <br>
+        <v-btn>삭제</v-btn>
+      </div>
+      </div>
+      <div>
+      <CommentCreate :writer="writer" :reloadComment="reloadComment"/>
+      </div>
+  </v-app>
 </template>
 
 
@@ -147,6 +89,7 @@ export default {
     foodList: data.foodList,
     comments: '',
     name: '',
+    writer: '',
   }),
 
   mounted(){
@@ -157,8 +100,9 @@ export default {
     this.foodText = data.Content[this.index].title;
     this.userChat = data.Comment[this.index].context;
     this.comments = data.Comment.filter(item => item.content_id === this.index);
-    this.name = data.User.filter(item => item.user_id === data.User[this.index].user_id);
+    this.name = data.User.filter(item => item.name === data.foodList[this.index].writer);
     this.name = this.name[0].name;
+    this.writer = data.foodList[this.index].writer;
   },
 
   methods:{
@@ -194,7 +138,7 @@ export default {
       console.log(index, 'index');
     },
     reloadComment(){
-
+      this.comments = data.Comment.filter(item => item.content_id === this.index);
     },
   },
   

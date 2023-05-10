@@ -21,10 +21,12 @@ import data from '@/data/datas';
 export default{
     name: 'CommentCreate',
     props:{
-        index: Number,
+        writer: String,
+        reloadComment: Function,
     },
     data(){
         return{
+            index: null,
             name: 'User1',
             context: '',
         }
@@ -33,8 +35,8 @@ export default{
         createComment(){
             data.Comment.push(
                 {
-                    // comment_id: data.Comment[data.Comment.length -1].comment_id + 1,
-                    comment_id: this.index + 1,
+                    comment_id: data.Comment[data.Comment.length -1].comment_id + 1,
+                    // comment_id: this.index + 1,
                     user_id: 1,
                     content_id: 4,
                     context: this.context,
@@ -42,9 +44,13 @@ export default{
                     updated_at: null
                 },
             )
+            this.reloadComment();
             this.context='';
             console.log(data.Comment[data.Comment.length -1].comment_id + 1, 'commit check');
         },
+    },
+    mounted(){
+        this.index=this.$route.params.listIndex;
     },
 }
 </script>
