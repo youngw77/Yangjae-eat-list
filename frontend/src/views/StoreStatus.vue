@@ -35,7 +35,7 @@
     <br><br><hr><br>
     <div 
     v-for="(item, index) in comments" 
-    :key="item.comment_id"
+    :key="'comment_' + item.comment_id"
     class="comment-list-item"
     ref="item"
     >
@@ -46,11 +46,21 @@
       <div class="comment-list-item-context">
         <div>{{ item.context }}</div>
       </div>
-      <div class="comment-list-item-button">
-        <v-btn>수정</v-btn>
-        <br>
-        <v-btn @click="deleteComment(index)">삭제</v-btn>
+        <div class="comment-list-item-button">
+          <v-btn>수정</v-btn>
+          <br>
+          <v-btn @click="deleteComment(index)">삭제</v-btn>
+          <br>
+          <v-btn @click="subCommentToggle">댓글 달기</v-btn>
+        </div>
       </div>
+      <div v-if="subCommentCreateToggle">
+        <CommentCreate 
+        :isSubComment="true" 
+        :comment-id="subCommentList.comment_id" 
+        :reloadSubComment="reloadSubComment"
+        :subCommentToggle="subCommentToggle"
+        />
       </div>
       <div
       v-for="item in subCommentList"
@@ -108,6 +118,7 @@ export default {
     writer: '',
     commentsList: [],
     subCommentList: [],
+    subCommentCreateToggle: false,
   }),
 
   mounted(){
@@ -172,7 +183,23 @@ export default {
       this.comments.splice(index, 1);
       this.reloadComment();
     },
-
+    subCommentToggle(){
+      if(this.subCommentCreateToggle === true){
+        this.subCommentCreateToggle = false
+      } else {
+        this.subCommentCreateToggle = true
+      }
+    },
+    reloadSubComment(){
+      this.subCommentList = data.SubComment.filter(
+      item => item.comment_id === data.Comment[this.index].comment_id,
+    ).map(subCommentItem => ({
+      ...subCommentItem,
+      user_name: data.User.filter(
+        item => item.user_id === subCommentItem.user_id
+      )[0].name
+    }));
+    },
   },
   
 };

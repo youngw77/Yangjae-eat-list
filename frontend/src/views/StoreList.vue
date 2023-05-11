@@ -109,6 +109,7 @@ export default {
   mounted(){
     const YangjaeAddress = this.$refs.Yangjae.YangjaeAddress;
     this.map.getView().setCenter(fromLonLat(YangjaeAddress));
+    this.map.getView().setZoom(16);
   },
 };
 </script>
