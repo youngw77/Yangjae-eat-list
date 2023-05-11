@@ -52,6 +52,23 @@
         <v-btn @click="deleteComment(index)">삭제</v-btn>
       </div>
       </div>
+      <div
+      v-for="item in subCommentList"
+      :key="item.subcomment_id"
+      class="comment-list-item"
+      >
+      <div class="comment-list-item-name">
+        <div>{{ item.subcomment_id }}</div>
+        <div>{{ item.created_at }}</div>
+      </div>
+      <div class="comment-list-item-context">
+        <div>{{ item.context }}</div>
+      </div>
+      <div class="comment-list-item-button">
+        <v-btn>수정</v-btn><br>
+        <v-btn @click="deleteComment(index)">삭제</v-btn>
+      </div>
+      </div>
       <CommentCreate :writer="writer" :reloadComment="reloadComment"></CommentCreate>
   </v-app>
 </template>
@@ -90,6 +107,7 @@ export default {
     name: '',
     writer: '',
     commentsList: [],
+    subCommentList: [],
   }),
 
   mounted(){
@@ -103,7 +121,15 @@ export default {
     this.name = data.User.filter(item => item.name === data.foodList[this.index].writer);
     this.name = this.name[0].name;
     this.writer = data.foodList[this.index].writer;
-    console.log(this.writer);
+    this.subCommentList = data.SubComment.filter(
+      item => item.comment_id === data.Comment[this.index].comment_id,
+    ).map(subCommentItem => ({
+      ...subCommentItem,
+      user_name: data.User.filter(
+        item => item.user_id === subCommentItem.user_id
+      )[0].name
+    }));
+    console.log(this.subCommentList);
   },
 
   methods:{
@@ -137,6 +163,7 @@ export default {
     },
     deleteComment(index){
       const DeleteIndex = this.comments[index].comment_id;
+      // 시간 복잡도 줄여서 검색 알고리즘 다시 작성하기
       for(let i=0; i<data.Comment.length; i++){
         if(data.Comment[i].comment_id === DeleteIndex){
           data.Comment.splice(i, 1);
