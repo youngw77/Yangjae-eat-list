@@ -1,17 +1,13 @@
 <template>
     <v-app>
-    <table>
-      <thead>
-        <tr>
-          <th>순위</th>
-          <th>작성자</th>
-          <th>음식점</th>
-          <th>후기</th>
-          <th>별점</th>
-        </tr>
-      </thead>
+    <v-data-table
+    :headers="headers"
+    :items="foodList"
+    :items-per-page="5"
+    >
+      <template v-slot:body="{ items }">
       <tbody>
-        <tr v-for="(food, index) in foodList" 
+        <tr v-for="(food, index) in items" 
         :key="'food_' + food.id"
         :active="selectedFood != null && selectedFood.name == food.name"
         @click="(e) => [rowClick(food, index), indexClick(index)]"
@@ -24,7 +20,8 @@
           <td><button>{{ food.evaluation }}</button></td>
         </tr>
       </tbody>
-    </table>
+      </template>
+    </v-data-table>
     <button @click="getList">Spring 데이터 호출</button>
         <MainMap 
         class="mapStyle"
@@ -58,6 +55,14 @@ export default {
     map: null,
     index: 0,
     foodList: data.foodList,
+    items: data.foodList,
+    headers: [
+      {text: '순위'},
+      {text: '작성자'},
+      {text: '음식점'},
+      {text: '후기'},
+      {text: '별점'},
+    ]
   }),
 
   methods:{
@@ -110,6 +115,8 @@ export default {
     const YangjaeAddress = this.$refs.Yangjae.YangjaeAddress;
     this.map.getView().setCenter(fromLonLat(YangjaeAddress));
     this.map.getView().setZoom(16);
+    this.foodList = data.foodList;
+    console.log(this.foodList);
   },
 };
 </script>
@@ -123,6 +130,7 @@ table thead tr th{
   height: 30px;
   background-color: black;
   color: white;
+  text-align:center;
 }
 
 table tbody tr td{

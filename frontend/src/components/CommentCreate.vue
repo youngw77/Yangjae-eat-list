@@ -110,7 +110,7 @@ export default{
     },
     mounted(){
         this.index=this.$route.query.listIndex;
-        console.log(this.isSubComment);
+        // console.log(this.isSubComment);
     },
 }
 </script>

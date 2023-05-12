@@ -163,9 +163,8 @@ export default {
         item => item.user_id === subCommentItem.user_id
       )[0].name
     }));
-    console.log(this.subCommentList);
-    console.log(this.subCommentList[0].comment_edit);
-
+    // console.log(this.subCommentList);
+    // console.log(this.subCommentList[0].comment_edit);
   },
 
   methods:{
@@ -175,24 +174,24 @@ export default {
         })
     },
     addresslocation(){
-      console.log(this.address);
+      // console.log(this.address);
       this.map.getView().setCenter(fromLonLat(this.address));
     },
     emitMainMap(data){
-      console.log('emit mapAdress', data);  // data input-placeholder에 값 넣기
+      // console.log('emit mapAdress', data);  // data input-placeholder에 값 넣기
       this.address=data;
-      console.log(this.address);
+      // console.log(this.address);
     },
     foodCoordinate(){
       StoreList.data().index;
     },
     emitMainMapCenter(data){
       this.map=data;
-      console.log(this.map, 'emitMainMapCenter');
+      // console.log(this.map, 'emitMainMapCenter');
     },
     emitIndex(index){
       this.index = index;
-      console.log(index, 'index');
+      // console.log(index, 'index');
     },
     reloadComment(){
       this.comments = data.Comment.filter(item => item.content_id === this.index);
