@@ -41,7 +41,8 @@ export default{
     },
     methods:{
         createComment(){
-            data.Comment.push(
+            if(data.Comment.length !== 0){
+                data.Comment.push(
                 {
                     comment_id: data.Comment[data.Comment.length -1].comment_id + 1,
                     user_id: 1,
@@ -54,9 +55,25 @@ export default{
             )
             this.reloadComment();
             this.context='';
+            }
+            else if(data.Comment.length === 0){
+                data.Comment.push(
+                {
+                    comment_id: 1,
+                    user_id: 1,
+                    content_id: this.index,
+                    context: this.context,
+                    created_at: '2019-01-01 13:11:42',
+                    updated_at: null,
+                    comment_edit: false,
+                },
+            )
+            this.reloadComment();
+            this.context='';
+            }
         },
         addComment(e){
-            if(e.keyCode === 13){
+            if(e.keyCode === 13 && data.Comment.length !== 0){
                 data.Comment.push(
                 {
                     comment_id: data.Comment[data.Comment.length -1].comment_id + 1,
@@ -71,9 +88,25 @@ export default{
             this.reloadComment();
             this.context='';
             }
+            else if(e.keyCode === 13 && data.Comment.length === 0){
+                data.Comment.push(
+                {
+                    comment_id: 1,
+                    user_id: 1,
+                    content_id: this.index,
+                    context: this.context,
+                    created_at: '2019-01-01 13:11:42',
+                    updated_at: null,
+                    comment_edit: false,
+                },
+            )
+            this.reloadComment();
+            this.context='';
+            }
         },
         createSubComment(){
-            data.SubComment.push(
+            if(data.SubComment.length !== 0){
+                data.SubComment.push(
                 {
                     subcomment_id: data.SubComment[data.SubComment.length -1].subcomment_id + 1,
                     user_id: 1,
@@ -87,9 +120,26 @@ export default{
             this.reloadSubComment();
             this.context='';
             this.subCommentToggle();
+            }
+            else if(data.SubComment.length === 0){
+                data.SubComment.push(
+                {
+                    subcomment_id: 1,
+                    user_id: 1,
+                    comment_id: this.index +1,
+                    context: this.context,
+                    created_at: '2019-01-01 13:11:42',
+                    updated_at: null,
+                    comment_edit: false,
+                },
+            )
+            this.reloadSubComment();
+            this.context='';
+            this.subCommentToggle();
+            }
         },
         addCreateSubComment(e){
-            if(e.keyCode === 13){
+            if(e.keyCode === 13 && data.SubComment.length !== 0){
             data.SubComment.push(
                 {
                     subcomment_id: data.SubComment[data.SubComment.length -1].subcomment_id + 1,
@@ -100,6 +150,22 @@ export default{
                     updated_at: null,
                     comment_edit: false,
 
+                },
+            )
+            this.reloadSubComment();
+            this.context='';
+            this.subCommentToggle();
+            }
+            else if(e.keyCode === 13 && data.SubComment.length === 0){
+                data.SubComment.push(
+                {
+                    subcomment_id: 1,
+                    user_id: 1,
+                    comment_id: this.index +1,
+                    context: this.context,
+                    created_at: '2019-01-01 13:11:42',
+                    updated_at: null,
+                    comment_edit: false,
                 },
             )
             this.reloadSubComment();
