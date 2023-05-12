@@ -255,18 +255,10 @@ export default {
       }
     },
     deleteSubComment(index){
-      console.log(index);
-      const DeleteSubIndex = this.subCommentList[index].comment_id;
-      console.log(data.SubComment[index].comment_id);
-      console.log(DeleteSubIndex);
-      console.log(data.SubComment.length);
-      // 시간 복잡도 줄여서 검색 알고리즘 다시 작성하기
-      for(let i=0; i<data.SubComment.length; i++){
-        if(data.SubComment[i].comment_id === DeleteSubIndex){
-          data.SubComment.splice(i, 1);
-        }
-      }
+      // console.log(index);
+      // console.log(data.SubComment);
       this.subCommentList.splice(index, 1);
+      data.SubComment.splice(index, 1);
       this.reloadSubComment();
     },
   },
@@ -280,21 +272,8 @@ export default {
   border:2px solid black;
 }
 
-.userTextarea{
-  background-color: rgb(99, 96, 96);
-  border:1px solid black;
-}
-
-.elevation-1{
-  border:0.5px solid rgb(211, 211, 211);
-}
-
 .foodMap{
   position:absolute;
-  right:20px;
-}
-
-.location h2{
   right:20px;
 }
 
@@ -325,9 +304,6 @@ export default {
   align-items: center;
   border: 0.5px solid black;
   padding: 1em;
-}
-.btn {
-  margin-bottom: 1em;
 }
 
 .inputText{

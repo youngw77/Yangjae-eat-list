@@ -110,7 +110,7 @@ export default{
                 {
                     subcomment_id: data.SubComment[data.SubComment.length -1].subcomment_id + 1,
                     user_id: 1,
-                    comment_id: this.index +1,
+                    comment_id: this.index + 1,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
                     updated_at: null,
@@ -126,7 +126,7 @@ export default{
                 {
                     subcomment_id: 1,
                     user_id: 1,
-                    comment_id: this.index +1,
+                    comment_id: this.index + 1,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
                     updated_at: null,
@@ -144,7 +144,7 @@ export default{
                 {
                     subcomment_id: data.SubComment[data.SubComment.length -1].subcomment_id + 1,
                     user_id: 1,
-                    comment_id: this.index +1,
+                    comment_id: this.index + 1,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
                     updated_at: null,
@@ -161,7 +161,7 @@ export default{
                 {
                     subcomment_id: 1,
                     user_id: 1,
-                    comment_id: this.index +1,
+                    comment_id: this.index + 1,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
                     updated_at: null,
@@ -176,6 +176,7 @@ export default{
     },
     mounted(){
         this.index=this.$route.query.listIndex;
+        console.log(this.index);
         // console.log(this.isSubComment);
     },
 }
