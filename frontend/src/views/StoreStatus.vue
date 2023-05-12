@@ -44,10 +44,19 @@
         <div>{{ item.created_at }}</div>
       </div>
       <div class="comment-list-item-context">
-        <div>{{ item.context }}</div>
+        <div v-if="comments[index].comment_edit === false">{{ item.context }}</div>
+        <div v-else>
+          <input 
+          type="text"
+          class="inputText"
+          v-model="editText"
+          :placeholder="comments[index].context"
+          @keydown="editCommentText($event, index)"
+          >
+        </div>
       </div>
         <div class="comment-list-item-button">
-          <v-btn>수정</v-btn>
+          <v-btn @click="editComment(index)">수정</v-btn>
           <br>
           <v-btn @click="deleteComment(index)">삭제</v-btn>
           <br>
@@ -63,7 +72,7 @@
         />
       </div>
       <div
-      v-for="item in subCommentList"
+      v-for="(item, index) in subCommentList"
       :key="item.subcomment_id"
       class="comment-list-item"
       >
@@ -72,10 +81,19 @@
         <div>{{ item.created_at }}</div>
       </div>
       <div class="comment-list-item-context">
-        <div>{{ item.context }}</div>
+        <div v-if="subCommentList[index].comment_edit === false">{{ item.context }}</div>
+        <div v-else>
+          <input 
+          type="text"
+          class="inputText"
+          v-model="editSubText"
+          :placeholder="subCommentList[index].context"
+          @keydown="editCommentText($event, index)"
+          >
+        </div>
       </div>
       <div class="comment-list-item-button">
-        <v-btn>수정</v-btn><br>
+        <v-btn @click="editSubComment(index)">수정</v-btn><br>
         <v-btn @click="deleteComment(index)">삭제</v-btn>
       </div>
       </div>
@@ -114,11 +132,14 @@ export default {
     userChatList: data.Comment,
     foodList: data.foodList,
     comments: [],
+    subComments: [],
     name: '',
     writer: '',
     commentsList: [],
     subCommentList: [],
     subCommentCreateToggle: false,
+    editText: '',
+    editSubText: '',
   }),
 
   mounted(){
@@ -129,18 +150,22 @@ export default {
     this.foodText = data.Content[this.index].title;
     this.userChat = data.Comment[this.index].context;
     this.comments = data.Comment.filter(item => item.content_id === this.index);
+    this.subComments = data.SubComment.filter(item => item.comment_id === this.index);
     this.name = data.User.filter(item => item.name === data.foodList[this.index].writer);
     this.name = this.name[0].name;
     this.writer = data.foodList[this.index].writer;
     this.subCommentList = data.SubComment.filter(
       item => item.comment_id === data.Comment[this.index].comment_id,
-    ).map(subCommentItem => ({
+    )
+    .map(subCommentItem => ({
       ...subCommentItem,
       user_name: data.User.filter(
         item => item.user_id === subCommentItem.user_id
       )[0].name
     }));
     console.log(this.subCommentList);
+    console.log(this.subCommentList[0].comment_edit);
+
   },
 
   methods:{
@@ -199,6 +224,28 @@ export default {
         item => item.user_id === subCommentItem.user_id
       )[0].name
     }));
+    },
+    editComment(index){
+      if(this.comments[index].comment_edit === false) {
+        this.comments[index].comment_edit = true;
+      } else{
+        this.comments[index].comment_edit = false;
+      }
+      // this.editText = this.comments[index].context;
+      // console.log(this.comments[index]);
+    },
+    editCommentText(e, index){
+      if(e.keyCode === 13){
+        data.Comment[index].context = this.editText;
+      }
+    },
+    editSubComment(index){
+      console.log(index);
+      if(this.subCommentList[index].comment_edit === false){
+        this.subCommentList[index].comment_edit = true;
+      } else {
+        this.subCommentList[index].comment_edit = false;
+      }
     },
   },
   
@@ -259,6 +306,10 @@ export default {
 }
 .btn {
   margin-bottom: 1em;
+}
+
+.inputText{
+  background-color: rgb(230, 235, 252);
 }
 
 </style>

@@ -75,7 +75,8 @@ export default {
         content_id: 0,
         context: '댓글1',
         created_at: '2019-03-29 14:11:11',
-        updated_at: null
+        updated_at: null,
+        comment_edit: false,
       },
       {
         comment_id: 2,
@@ -83,7 +84,8 @@ export default {
         content_id: 1,
         context: '댓글2',
         created_at: '2019-03-29 16:11:11',
-        updated_at: null
+        updated_at: null,
+        comment_edit: false,
       },
       {
         comment_id: 3,
@@ -91,7 +93,8 @@ export default {
         content_id: 2,
         context: '댓글3',
         created_at: '2019-03-29 14:11:11',
-        updated_at: null
+        updated_at: null,
+        comment_edit: false,
       },
       {
         comment_id: 4,
@@ -99,7 +102,8 @@ export default {
         content_id: 3,
         context: '댓글4',
         created_at: '2019-03-29 14:11:11',
-        updated_at: null
+        updated_at: null,
+        comment_edit: false,
       },
       {
         comment_id: 5,
@@ -107,7 +111,8 @@ export default {
         content_id: 4,
         context: '댓글5',
         created_at: '2019-03-29 14:11:11',
-        updated_at: null
+        updated_at: null,
+        comment_edit: false,
       }
     ],
     SubComment: [
@@ -117,7 +122,8 @@ export default {
         user_id: 1,
         context: '대댓글',
         created_at: '2019-03-29 16:22:11',
-        updated_at: null
+        updated_at: null,
+        comment_edit: false,
       }
     ],
     foodList: [ // foodList DB data 가져오기

@@ -48,14 +48,14 @@ export default{
                     content_id: this.index,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
-                    updated_at: null
+                    updated_at: null,
+                    comment_edit: false,
                 },
             )
             this.reloadComment();
             this.context='';
         },
         addComment(e){
-            console.log(e);
             if(e.keyCode === 13){
                 data.Comment.push(
                 {
@@ -64,7 +64,8 @@ export default{
                     content_id: this.index,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
-                    updated_at: null
+                    updated_at: null,
+                    comment_edit: false,
                 },
             )
             this.reloadComment();
@@ -79,7 +80,8 @@ export default{
                     comment_id: this.index +1,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
-                    updated_at: null
+                    updated_at: null,
+                    comment_edit: false,
                 },
             )
             this.reloadSubComment();
@@ -87,7 +89,6 @@ export default{
             this.subCommentToggle();
         },
         addCreateSubComment(e){
-            console.log(e);
             if(e.keyCode === 13){
             data.SubComment.push(
                 {
@@ -96,7 +97,9 @@ export default{
                     comment_id: this.index +1,
                     context: this.context,
                     created_at: '2019-01-01 13:11:42',
-                    updated_at: null
+                    updated_at: null,
+                    comment_edit: false,
+
                 },
             )
             this.reloadSubComment();
