@@ -60,7 +60,7 @@
           <br>
           <v-btn @click="deleteComment(index)">삭제</v-btn>
           <br>
-          <v-btn @click="subCommentToggle">댓글 달기</v-btn>
+          <v-btn @click="subCommentToggle">대댓 작성</v-btn>
         </div>
       </div>
       <div v-if="subCommentCreateToggle">
@@ -88,13 +88,13 @@
           class="inputText"
           v-model="editSubText"
           :placeholder="subCommentList[index].context"
-          @keydown="editCommentText($event, index)"
+          @keydown="editSubCommentText($event, index)"
           >
         </div>
       </div>
       <div class="comment-list-item-button">
         <v-btn @click="editSubComment(index)">수정</v-btn><br>
-        <v-btn @click="deleteComment(index)">삭제</v-btn>
+        <v-btn @click="deleteSubComment(index)">삭제</v-btn>
       </div>
       </div>
       <CommentCreate :writer="writer" :reloadComment="reloadComment"></CommentCreate>
@@ -235,7 +235,8 @@ export default {
     },
     editCommentText(e, index){
       if(e.keyCode === 13){
-        data.Comment[index].context = this.editText;
+        this.comments[index].context = this.editText;
+        this.editComment(index);
       }
     },
     editSubComment(index){
@@ -245,6 +246,28 @@ export default {
       } else {
         this.subCommentList[index].comment_edit = false;
       }
+    },
+    editSubCommentText(e, index){
+      if(e.keyCode === 13){
+        console.log(this.subComments);
+        this.subComments[index].context = this.editSubText;
+        this.reloadSubComment(index);
+      }
+    },
+    deleteSubComment(index){
+      console.log(index);
+      const DeleteSubIndex = this.subCommentList[index].comment_id;
+      console.log(data.SubComment[index].comment_id);
+      console.log(DeleteSubIndex);
+      console.log(data.SubComment.length);
+      // 시간 복잡도 줄여서 검색 알고리즘 다시 작성하기
+      for(let i=0; i<data.SubComment.length; i++){
+        if(data.SubComment[i].comment_id === DeleteSubIndex){
+          data.SubComment.splice(i, 1);
+        }
+      }
+      this.subCommentList.splice(index, 1);
+      this.reloadSubComment();
     },
   },
   
