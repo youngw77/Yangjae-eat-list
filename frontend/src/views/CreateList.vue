@@ -1,6 +1,14 @@
 <template>
   <v-app>
   <MainMap></MainMap>
+  <div class="location-info-area">
+      <input
+          placeholder="위치 정보 직접 입력하기"
+          v-model="address"
+          @keydown="addresslocation()"
+          size="40"
+      />
+    </div>
   <v-form
     ref="form"
     v-model="valid"
@@ -52,6 +60,7 @@
 
 <script>
 import MainMap from '@/components/MainMap.vue';
+import {fromLonLat} from 'ol/proj.js'
 
   export default {
     components: {
@@ -80,6 +89,10 @@ import MainMap from '@/components/MainMap.vue';
       reset () {
         this.$refs.form.reset()
       },
+      addresslocation(){
+      // console.log(this.address);
+      this.map.getView().setCenter(fromLonLat(this.address));
+    },
     },
   }
 </script>
