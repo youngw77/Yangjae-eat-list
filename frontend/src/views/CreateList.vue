@@ -1,6 +1,8 @@
 <template>
   <v-app>
-  <MainMap></MainMap>
+  <MainMap
+  v-on:emit-MainMap="emitMainMap"
+  ></MainMap>
   <div class="location-info-area">
       <input
           placeholder="위치 정보 직접 입력하기"
@@ -75,7 +77,7 @@ import {fromLonLat} from 'ol/proj.js'
         v => (v && v.length <= 20) || '가게명은 20글자 이하여야 합니다.',
       ],
       Content: '',
-      
+      address: undefined,
       ContentRules: [
         v => !!v || '제목을 입력해 주세요',
         v => (v && v.length <= 20) || '제목은 20글자 이하여야 합니다.',
@@ -92,7 +94,10 @@ import {fromLonLat} from 'ol/proj.js'
       addresslocation(){
       // console.log(this.address);
       this.map.getView().setCenter(fromLonLat(this.address));
-    },
+      },
+      emitMainMap(data){
+        this.address=data;
+      },
     },
   }
 </script>
