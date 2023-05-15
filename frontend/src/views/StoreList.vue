@@ -133,7 +133,7 @@ table thead tr th{
   text-align:center;
 }
 
-table tbody tr td{
+table thead tbody tr td{
   text-align: center;
 }
 

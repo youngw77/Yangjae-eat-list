@@ -117,7 +117,7 @@ export default {
     ],
     SubComment: [
       {
-        subcomment_id: 1, // 
+        subcomment_id: 1,
         comment_id: 3,  // foodList index 값
         user_id: 1, // CommentCreate data.user값
         context: '대댓글',
@@ -159,6 +159,13 @@ export default {
       id: 5,
       writer: 'User5',
       name: '태국 식당 356',
+      evaluation: '★★★☆☆',
+      coordinate:[127.039651240311, 37.48410336645273],
+    },
+    {
+      id: 6,
+      writer: 'User6',
+      name: '중화반점',
       evaluation: '★★★☆☆',
       coordinate:[127.039651240311, 37.48410336645273],
     },
