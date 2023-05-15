@@ -37,7 +37,7 @@ export default {
       },
       {
         content_id: 2,
-        user_id: 3,
+        user_id: 2,
         title: '순대국 내장x',
         context: '내장 없어서 맛있게 먹었어요',
         created_at: '2019-01-02 13:11:42',
@@ -45,7 +45,7 @@ export default {
       },
       {
         content_id: 3,
-        user_id: 2,
+        user_id: 3,
         title: '싸다 김밥 오므라이스',
         context: '오므라이스가 맛있어요',
         created_at: '2019-03-29 13:11:42',
@@ -53,7 +53,7 @@ export default {
       },
       {
         content_id: 4,
-        user_id: 2,
+        user_id: 4,
         title: '뚝배기 불고기',
         context: '매일 요일 매뉴 1000원 할인 있어요',
         created_at: '2019-03-29 13:11:42',
@@ -61,9 +61,17 @@ export default {
       },
       {
         content_id: 5,
-        user_id: 2,
+        user_id: 5,
         title: '볶음밥',
         context: '이국적인 음식 먹고 싶으면 나름 괜찮아요',
+        created_at: '2019-03-29 13:11:42',
+        updated_at: null
+      },
+      {
+        content_id: 6,
+        user_id: 6,
+        title: '짜장 & 탕수육',
+        context: '그냥 동네 짜장면',
         created_at: '2019-03-29 13:11:42',
         updated_at: null
       }

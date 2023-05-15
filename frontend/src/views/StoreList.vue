@@ -18,6 +18,10 @@
           <td>{{ food.name }}</td>
           <td><button @click="foodSelect(index)">바로가기</button></td>
           <td><button>{{ food.evaluation }}</button></td>
+          <!-- <v-rating
+            v-model="rating"
+            icon-label="custom icon label text {0} of {1}"
+          ></v-rating> -->
         </tr>
       </tbody>
       </template>
@@ -62,7 +66,8 @@ export default {
       {text: '음식점'},
       {text: '후기'},
       {text: '별점'},
-    ]
+    ],
+    rating: 0,
   }),
 
   methods:{
@@ -116,7 +121,7 @@ export default {
     this.map.getView().setCenter(fromLonLat(YangjaeAddress));
     this.map.getView().setZoom(16);
     this.foodList = data.foodList;
-    console.log(this.foodList);
+    // console.log(this.foodList);
   },
 };
 </script>
