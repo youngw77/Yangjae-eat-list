@@ -18,11 +18,14 @@
           <td>{{ food.writer }}</td>
           <td>{{ food.name }}</td>
           <td><button @click="foodSelect(index)">바로가기</button></td>
-          <td><button>{{ food.evaluation }}</button></td>
-          <!-- <v-rating
-            v-model="rating"
+          <!-- <td>{{ food.evaluation }}</td> -->
+          <td>
+            <v-rating
+            v-model="food.evaluation"
             icon-label="custom icon label text {0} of {1}"
-          ></v-rating> -->
+            >
+            </v-rating>
+          </td>
         </tr>
       </tbody>
       </template>
