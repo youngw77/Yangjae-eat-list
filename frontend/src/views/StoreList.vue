@@ -4,6 +4,7 @@
     :headers="headers"
     :items="foodList"
     :items-per-page="5"
+    :page.sync="page"
     >
       <template v-slot:body="{ items }">
       <tbody>
@@ -68,6 +69,7 @@ export default {
       {text: '별점'},
     ],
     rating: 0,
+    page: 1,
   }),
 
   methods:{
@@ -82,14 +84,14 @@ export default {
       this.$router.push({
         name: 'StoreStatus',
         query: {
-          listIndex: index
+          listIndex: index + (this.page-1)*5
         }
       })
     },
     rowClick(food, index){
       // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
-      this.map.getView().setCenter(fromLonLat(this.foodList[index].coordinate));
-      this.index = index;
+      this.map.getView().setCenter(fromLonLat(this.foodList[index + (this.page-1)*5].coordinate));
+      this.index = index + (this.page-1)*5;
       console.log(this.$refs.Yangjae.StoreAddress);
       console.log(this.index);
       if(this.selectedFood == food){
@@ -103,7 +105,7 @@ export default {
       this.$router.push({
         name: 'StoreStatus',
         query: {
-          listIndex: index
+          listIndex: index + (this.page-1)*5
         }
       })
     },

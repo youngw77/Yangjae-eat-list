@@ -25,6 +25,11 @@ export default {
         name: 'User5',
         created_at: '2018-09-11 11:42:11'
       },
+      {
+        user_id: 6,
+        name: 'User6',
+        created_at: '2018-09-11 11:42:11'
+      },
     ],
     Content: [
       {
@@ -118,6 +123,15 @@ export default {
         user_id: 2,
         content_id: 4,
         context: '댓글5',
+        created_at: '2019-03-29 14:11:11',
+        updated_at: null,
+        comment_edit: false,
+      },
+      {
+        comment_id: 6,
+        user_id: 2,
+        content_id: 4,
+        context: '댓글6',
         created_at: '2019-03-29 14:11:11',
         updated_at: null,
         comment_edit: false,
