@@ -79,7 +79,7 @@ export default {
         context: '그냥 동네 짜장면',
         created_at: '2019-03-29 13:11:42',
         updated_at: null
-      }
+      },
     ],
     Comment: [
       {
@@ -135,7 +135,7 @@ export default {
         created_at: '2019-03-29 14:11:11',
         updated_at: null,
         comment_edit: false,
-      }
+      },
     ],
     SubComment: [
       {

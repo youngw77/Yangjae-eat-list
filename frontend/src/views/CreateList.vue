@@ -58,7 +58,7 @@
 
     <v-btn
       class="mr-2"
-      @click="newFoodList(), newContent()"
+      @click="newFoodList(), newContent(), newUser()"
       color="cyan"
     >
       작성하기
@@ -122,7 +122,7 @@ import data from '@/data/datas';
             writer: this.writer,
             name: this.StoreName,
             evaluation: this.evaluation,
-            coordinata: this.coordinate,
+            coordinate: this.coordinate,
           }
         );
         this.$router.push('StoreList').catch(() => {});
@@ -137,6 +137,15 @@ import data from '@/data/datas';
             created_at: this.created_at,
             updated_at: this.updated_at,
           }
+        )
+      },
+      newUser(){
+        data.User.push(
+          {
+            user_id: this.id,
+            name: `User${this.id}`,
+            created_at: '2018-09-11 11:42:11'
+          },
         )
       },
     },

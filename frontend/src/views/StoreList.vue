@@ -92,9 +92,9 @@ export default {
       })
     },
     rowClick(food, index){
-      // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
-      this.map.getView().setCenter(fromLonLat(this.foodList[index + (this.page-1)*5].coordinate));
       this.index = index + (this.page-1)*5;
+      // 추후에 한번 클릭 시 MainMap에서 해당 가게 좌표를 DB에서 받아 좌표로 지도 재 랜더링 구현 예정
+      this.map.getView().setCenter(fromLonLat(this.foodList[index].coordinate));
       console.log(this.$refs.Yangjae.StoreAddress);
       console.log(this.index);
       if(this.selectedFood == food){

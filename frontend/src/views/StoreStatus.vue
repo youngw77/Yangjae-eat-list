@@ -146,6 +146,8 @@ export default {
     this.index = this.$route.query.listIndex;
     this.address = this.foodList[this.index].coordinate;
     this.map.getView().setCenter(fromLonLat(this.foodList[this.index].coordinate));
+    console.log(data.Comment[this.index]);
+    if(data.Comment[this.index] !== undefined){
     this.textArea = data.Content[this.index].context;
     this.foodText = data.Content[this.index].title;
     this.userChat = data.Comment[this.index].context;
@@ -163,6 +165,7 @@ export default {
         item => item.user_id === subCommentItem.user_id
       )[0].name
     }));
+  }
     // console.log(this.subCommentList);
     // console.log(this.subCommentList[0].comment_edit);
   },
