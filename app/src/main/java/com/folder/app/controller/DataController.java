@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.folder.app.dto.ContentDTO;
+import com.folder.app.dto.FoodListDTO;
+
 @RestController
 public class DataController {
 
@@ -21,8 +24,8 @@ public class DataController {
     }
 
     @PostMapping("/StoreList")
-    public void StoreList() {
-
+    public FoodListDTO StoreList() {
+        return null;
     }
 
     @PostMapping("/CreateList")
@@ -31,8 +34,8 @@ public class DataController {
     }
 
     @GetMapping("/StoreList/:StoreName")
-    public void StoreName() {
-
+    public ContentDTO StoreName() {
+        return null;
     }
 
 }
